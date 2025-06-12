@@ -7,6 +7,8 @@ app = Flask(__name__, template_folder="template")
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 20 * 1024 * 1024
 
+links=[]
+
 @app.route('/', methods=["POST", "GET"])
 def upload():
     if request.method=="POST":
@@ -15,6 +17,9 @@ def upload():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filepath)
         print ("saved to"+filepath)
+      link=request.form["uploadLink"]
+      if link:
+          links.append(link)
     return render_template("UploadFile.html")
 
 @app.route ('/uploaded')
@@ -28,7 +33,12 @@ def uploaded():
         <a href="{{url_for('findFile', filename=file)}}">download</a>
     {%endfor%}
     </ul>
-    <h1>please go to /download/__filename__ to download file
+    <h1>here are links: </h1>
+    <ul>
+    {%for l in links%}
+      <li>{{l}}</li>
+    {%endfor%}
+    </ul>
     """, folder=fileList, num=len(fileList))
 
 @app.route("/download/<filename>")
