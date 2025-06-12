@@ -39,7 +39,7 @@ def uploaded():
       <li>{{l}}</li>
     {%endfor%}
     </ul>
-    """, folder=fileList, num=len(fileList))
+    """, folder=fileList, num=len(fileList), links=links)
 
 @app.route("/download/<filename>")
 def findFile(filename):
