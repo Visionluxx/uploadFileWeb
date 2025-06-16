@@ -1,17 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng Link hoặc File</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 3 CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <style>
+    body, html {
+      height: 100%;
+      background-color: #2c3e50;
+      color: #ecf0f1;
+    }
+
+    .center-box {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-form {
+      max-width: 420px;
+      width: 100%;
+      padding: 25px;
+      background: #34495e;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .upload-form h4 {
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .form-control {
+      background-color: #2d3e50;
+      color: #ecf0f1;
+      border: 1px solid #4b6584;
+      border-radius: 8px;
+    }
+
+    .form-control:focus {
+      background-color: #2d3e50;
+      border-color: #5dade2;
+      box-shadow: none;
+    }
+
+    .btn-custom {
+      background-color: #2980b9;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .btn-custom:hover {
+      background-color: #3498db;
+    }
+
+    .help-block,
+    #message {
+      color: #bdc3c7;
+    }
+
+    #message.text-danger {
+      color: #e74c3c;
+    }
+
+    #message.text-success {
+      color: #2ecc71;
+    }
+  </style>
+</head>
 <body>
 
-<p>Click on the "Choose File" button to upload a file:</p>
+<div class="container center-box">
+  <form class="upload-form" id="uploadForm">
+    <h4 class="text-center"> Đăng Link hoặc Tệp</h4>
 
-<form action="#", method="post", enctype="multipart/form-data">
-  <input type="file" id="uploadedFile" name="uploadedFile" >
-  <input type="submit">
-  <input type="text" id="uploadLink" name="uploadLink">
-</form>
+    <div class="form-group">
+      <label for="link"> Đường dẫn (link):</label>
+      <input type="url" class="form-control" id="link" placeholder="https://..." name="link">
+    </div>
 
-<button onclick="location.href = '/uploaded'">uploaded</button>
+    <div class="form-group">
+      <label for="file"> Tải tệp (≤ 54MB):</label>
+      <input type="file" class="form-control" id="file" name="file">
+      <p class="help-block">Chọn tệp bất kỳ (PDF, ảnh, v.v).</p>
+    </div>
 
+    <button type="submit" class="btn btn-custom btn-block">🚀 Gửi</button>
+    <div id="message" class="text-center" style="margin-top: 12px;"></div>
+  </form>
+</div>
+
+<!-- Bootstrap + jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+  const MAX_FILE_SIZE = 54 * 1024 * 1024;
+
+  $('#uploadForm').on('submit', function(e) {
+    e.preventDefault();
+    const fileInput = $('#file')[0].files[0];
+    const message = $('#message');
+    message.removeClass('text-danger text-success').text('');
+
+    if (fileInput && fileInput.size > MAX_FILE_SIZE) {
+      message.addClass('text-danger').text('❌ Tệp quá lớn! Chỉ hỗ trợ ≤ 54MB.');
+      return;
+    }
+
+    message.addClass('text-success').text('✅ Gửi thành công (mô phỏng)');
+  });
+</script>
 
 </body>
 </html>
+
