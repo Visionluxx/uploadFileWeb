@@ -12,12 +12,12 @@ links=[]
 @app.route('/', methods=["POST", "GET"])
 def upload():
     if request.method=="POST":
-      file = request.files['uploadedFile']
+      file = request.files['file']
       if file and file.filename:
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filepath)
         print ("saved to"+filepath)
-      link=request.form["uploadLink"]
+      link=request.form["link"]
       if link:
           links.append(link)
     return render_template("UploadFile.html")
