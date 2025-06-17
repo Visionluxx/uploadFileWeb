@@ -76,12 +76,12 @@
 <body>
 
 <div class="container center-box">
-  <form class="upload-form" id="uploadForm">
+  <form class="upload-form" id="uploadForm" method="POST">
     <h4 class="text-center"> Đăng Link hoặc Tệp</h4>
 
     <div class="form-group">
       <label for="link"> Đường dẫn (link):</label>
-      <input type="url" class="form-control" id="link" placeholder="https://..." name="link">
+      <input class="form-control" id="link" placeholder="https://..." name="link">
     </div>
 
     <div class="form-group">
@@ -109,11 +109,11 @@
     message.removeClass('text-danger text-success').text('');
 
     if (fileInput && fileInput.size > MAX_FILE_SIZE) {
-      message.addClass('text-danger').text('❌ Tệp quá lớn! Chỉ hỗ trợ ≤ 54MB.');
+      message.addClass('text-danger').text(' Tệp quá lớn! Chỉ hỗ trợ ≤ 54MB.');
       return;
     }
 
-    message.addClass('text-success').text('✅ Gửi thành công (mô phỏng)');
+    message.addClass('text-success').text('Gửi thành công');
   });
 </script>
 
